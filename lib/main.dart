@@ -53,8 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
     _res = await Tflite.loadModel(
       // model: "assets/ssd_mobilenet.tflite",
       // labels: "assets/ssd_mobilenet.txt",
-      model: "assets/graph.tflite",
-      labels: "assets/labels.txt",
+      model: "assets/graph2.tflite",
+      labels: "assets/labels2.txt",
     );
   }
 
@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 )
               : Container(),
-              Positioned(
+          Positioned(
             bottom: 0,
             child: Container(
               height: size.height / 2.5,
@@ -106,7 +106,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 gradient: LinearGradient(
                   begin: FractionalOffset.topCenter,
                   end: FractionalOffset.bottomCenter,
-                  colors: [Color(0xff000000).withOpacity(0.0), Color(0xff000000).withOpacity(0.5)],
+                  colors: [
+                    Color(0xff000000).withOpacity(0.0),
+                    Color(0xff000000).withOpacity(0.5)
+                  ],
                 ),
               ),
             ),
@@ -155,8 +158,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       // numResults: 10,
                     );
                     print(recs);
-                    final List<String> classes =
-                        List.from(recs.map((rec) => "${rec["label"]}_${rec["confidence"]}").toList());
+                    final List<String> classes = List.from(recs
+                        .map(
+                          (rec) =>
+                              "${rec["label"]} (${double.parse(rec["confidence"].toStringAsFixed(1)) * 100}%)",
+                        )
+                        .toList());
                     print(classes);
                     isProcessing = false;
                     Navigator.push(

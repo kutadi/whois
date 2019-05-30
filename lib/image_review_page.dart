@@ -1,11 +1,8 @@
 import 'dart:io';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:simple_share/simple_share.dart';
-import 'package:flare_flutter/flare_actor.dart';
 
 class ImageReviewPage extends StatelessWidget {
   final String imagePath;
@@ -63,15 +60,21 @@ class ImageReviewPage extends StatelessWidget {
                             child: Container(
                               height: size.height / 2.5,
                               width: size.width,
-                              child: classes.any((l) => l.startsWith("m"))
-                                  ? FlareActor(
-                                      "assets/flare/man.flr",
-                                      animation: "Untitled",
-                                    )
-                                  : FlareActor(
-                                      "assets/flare/woman.flr",
-                                      animation: "Untitled",
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  for (String s in classes) ...[
+                                    Padding(
+                                      padding: EdgeInsets.only(bottom: 30),
+                                      child: Text(
+                                        s,
+                                        textScaleFactor: 2,
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
+                                  ]
+                                ],
+                              ),
                             ),
                           ),
                           //For debugging:
